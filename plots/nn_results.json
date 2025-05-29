@@ -1,0 +1,32 @@
+{
+    "Model Performance Metrics": {
+        "Train RMSE": "$74.29",
+        "Test RMSE": "$75.18",
+        "Train MAE": "$48.96",
+        "Test MAE": "$50.11",
+        "Train R\u00b2": "0.6076",
+        "Test R\u00b2": "0.5979"
+    },
+    "Selected Features": [
+        "accommodates",
+        "bedrooms",
+        "bathrooms",
+        "beds",
+        "room_type",
+        "property_type",
+        "longitude",
+        "neighbourhood_cleansed",
+        "host_is_superhost_numeric",
+        "bed_to_accommodates_ratio",
+        "bathrooms_to_bedrooms_ratio",
+        "beds_to_bedrooms_ratio",
+        "total_rooms",
+        "room_efficiency",
+        "location_score",
+        "review_scores_cleanliness",
+        "essential_amenities",
+        "luxury_amenities",
+        "outdoor_amenities",
+        "amenity_score"
+    ]
+}
