@@ -72,3 +72,4 @@ plots/*.pdf
 .env
 .env.* data/grouped_listings.json
 data/grouped_listings.json
+data/grouped_listings.json
