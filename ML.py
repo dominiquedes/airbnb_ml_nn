@@ -18,6 +18,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import InputLayer, Dense, BatchNormalization, LeakyReLU, Dropout
 from tensorflow.keras.regularizers import l1_l2
 from xgboost import XGBRegressor
+import joblib
 
 # Set random seed for reproducibility
 np.random.seed(42)
@@ -486,3 +487,29 @@ feature_importance = pd.DataFrame({
 }).sort_values('importance', ascending=False)
 print("\nTop 10 Most Important Features:")
 print(feature_importance.head(10))
+
+# After training the Random Forest model
+print("\nSaving models and transformers...")
+# Create models directory if it doesn't exist
+os.makedirs('models', exist_ok=True)
+
+# Save the Random Forest model
+joblib.dump(rf_random.best_estimator_, 'models/random_forest_model.joblib')
+
+# Save the scaler
+joblib.dump(scaler, 'models/scaler.joblib')
+
+# Save the target transformer
+target_transformer = RobustScaler()
+target_transformer.fit(y_train.values.reshape(-1, 1))
+joblib.dump(target_transformer, 'models/target_transformer.joblib')
+
+# Save the number of features
+with open('models/n_features.txt', 'w') as f:
+    f.write(str(X_train.shape[1]))
+
+# Save the label encoders
+for feature in categorical_features:
+    le = LabelEncoder()
+    le.fit(X_train[feature])
+    joblib.dump(le, f'models/{feature}_encoder.joblib')

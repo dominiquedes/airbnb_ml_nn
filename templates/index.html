@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Airbnb Price Predictor</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+            <li><a href="{{ url_for('predict_page') }}">Predict Price</a></li>
+            <li><a href="{{ url_for('models_page') }}">About Models</a></li>
+            <li><a href="{{ url_for('listings_page') }}">View Listings</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to Airbnb Price Predictor</h1>
+            <p>Predict Airbnb prices in New York City using our advanced machine learning models</p>
+            <a  href="{{ url_for('predict_page') }}" class="cta-button">Start Predicting</a>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <h2>Price Prediction</h2>
+                <p>Get accurate price predictions for your Airbnb listing using our ensemble of machine learning models.</p>
+                <a  href="{{ url_for('predict_page') }}" class="button">Try Now</a>
+            </div>
+
+            <div class="feature-card">
+                <h2>Advanced Models</h2>
+                <p>Learn about our neural network, random forest, and stacked models that power our predictions.</p>
+                <a href="{{ url_for('models_page') }}" class="button">Learn More</a>
+            </div>
+
+            <div class="feature-card">
+                <h2>Browse Listings</h2>
+                <p>Explore existing Airbnb listings in New York City and their features.</p>
+                <a href="{{ url_for('listings_page') }}" class="button">View Listings</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Airbnb Price Predictor. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

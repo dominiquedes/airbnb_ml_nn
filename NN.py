@@ -20,10 +20,10 @@ listings_df = pd.read_csv('data/listings.csv')
 # Clean and preprocess data
 print("Cleaning and preprocessing data...")
 
-# Clean price (only for target variable)
+# Clean price (only for target variable) - to remove the dollar sign and commas
 listings_df['price'] = listings_df['price'].str.replace('$', '').str.replace(',', '').astype(float)
 
-# Handle amenities
+# Handle amenities - to get the number of each type of amenity
 def extract_amenity_categories(amenities_str):
     categories = {
         'essential': ['Wifi', 'Air conditioning', 'Heating', 'Kitchen'],
@@ -33,7 +33,7 @@ def extract_amenity_categories(amenities_str):
     }
     
     try:
-        if pd.isna(amenities_str):
+        if pd.isna(amenities_str): # If the amenities are missing, return 0 for all categories
             return [0, 0, 0, 0]
         amenities_list = ast.literal_eval(amenities_str)
         return [
@@ -45,7 +45,7 @@ def extract_amenity_categories(amenities_str):
     except:
         return [0, 0, 0, 0]
 
-amenities_features = listings_df['amenities'].apply(extract_amenity_categories)
+amenities_features = listings_df['amenities'].apply(extract_amenity_categories) # Apply the extract_amenity_categories function to the amenities column - to get the number of each type of amenity
 listings_df['essential_amenities'] = [x[0] for x in amenities_features]
 listings_df['safety_amenities'] = [x[1] for x in amenities_features]
 listings_df['luxury_amenities'] = [x[2] for x in amenities_features]
@@ -60,7 +60,7 @@ numeric_columns = ['bathrooms', 'bedrooms', 'beds', 'review_scores_rating',
 for col in numeric_columns:
     listings_df[col] = listings_df[col].fillna(listings_df[col].median())
 
-# Calculate review score mean and variance
+# Calculate review score mean and variance - to create new features that are more informative
 review_cols = ['review_scores_rating', 'review_scores_cleanliness', 'review_scores_value']
 listings_df['review_score_mean'] = listings_df[review_cols].mean(axis=1)
 listings_df['review_score_variance'] = listings_df[review_cols].var(axis=1)
@@ -68,7 +68,7 @@ listings_df['review_score_variance'] = listings_df[review_cols].var(axis=1)
 # Feature engineering
 print("Engineering new features...")
 
-# Safe division function
+# Safe division function - to avoid division by zero
 def safe_divide(a, b, fill_value=0):
     return np.divide(a, b, out=np.full_like(a, fill_value, dtype=float), where=b!=0)
 
@@ -88,7 +88,7 @@ listings_df['location_score'] = np.sqrt(
     listings_df['latitude_scaled']**2 + listings_df['longitude_scaled']**2
 )
 
-# Review-based features
+# Review-based features - to create a feature that is more informative
 listings_df['review_density'] = safe_divide(listings_df['number_of_reviews'], 
                                           (listings_df['review_scores_rating'] + 1))
 
@@ -98,7 +98,7 @@ listings_df['amenity_score'] = (listings_df['essential_amenities'] * 1.0 +
                                listings_df['luxury_amenities'] * 1.5 +
                                listings_df['outdoor_amenities'] * 1.3)
 
-# Select features for prediction
+# Select features for prediction 
 selected_features = [
     'accommodates',
     'bedrooms',
@@ -131,7 +131,7 @@ selected_features = [
     'amenity_score'
 ]
 
-# Prepare features and target
+# Prepare features and target - to split the data into features and target
 print("Preparing features and target...")
 X = listings_df[selected_features].copy()
 y = listings_df['price']
@@ -148,7 +148,7 @@ for feature in categorical_features:
 for column in X.columns:
     X[column] = X[column].fillna(X[column].median())
 
-# Remove extreme outliers using IQR method
+# Remove extreme outliers using IQR method - determines the outlier by creating a range and then removing the values that are outside of that range
 def remove_outliers(df, target, threshold=2.5):
     Q1 = target.quantile(0.25)
     Q3 = target.quantile(0.75)
@@ -176,12 +176,20 @@ scaler = RobustScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Transform target using Yeo-Johnson transformation
+# Transform target using Yeo-Johnson transformation - to make the target more normally distributed - Yeo-Johnson is a power transformation that is used to make the target more normally distributed
 pt = PowerTransformer(method='yeo-johnson')
 y_train_transformed = pt.fit_transform(y_train.values.reshape(-1, 1)).ravel()
 y_test_transformed = pt.transform(y_test.values.reshape(-1, 1)).ravel()
 
-# Create the neural network model
+# Create the neural network model - layers are the number of neurons in each layer - kernel_regularizer is a regularization term to prevent overfitting - l1_l2 is a regularization term that is used to prevent overfitting
+# LeakyReLU is an activation function that is used to introduce non-linearity into the model - BatchNormalization is a technique that is used to normalize the input to the next layer - Dropout is a technique that is used to prevent overfitting
+# Each layer is connected to the next layer by a weight matrix - the weights are learned during training
+# The model is trained using the Adam optimizer - Adam is a gradient descent optimization algorithm that is used to minimize the loss function
+# The loss function is the mean squared error - the model is trained to minimize the loss function
+# The metrics are the metrics that are used to evaluate the model - the metrics are the mean absolute error and the root mean squared error
+# The model is trained for 150 epochs - the model is trained for 150 epochs to ensure that the model is trained for a sufficient number of epochs
+# The batch size is 32 - the batch size is the number of samples that are used to update the weights of the model
+
 print("\nCreating neural network model...")
 model = Sequential([
     InputLayer(input_shape=(X_train.shape[1],)),
@@ -220,14 +228,14 @@ model.compile(
     metrics=['mae']
 )
 
-# Create callbacks
+# Create callbacks  - EarlyStopping is a callback that stops the training if the validation loss doesn't improve for a certain number of epochs 
 early_stopping = EarlyStopping(
     monitor='val_loss',
     patience=25,
     restore_best_weights=True,
     verbose=2
 )
-
+# ReduceLROnPlateau is a callback that reduces the learning rate if the validation loss doesn't improve for a certain number of epochs
 reduce_lr = ReduceLROnPlateau(
     monitor='val_loss',
     factor=0.2,
@@ -338,3 +346,42 @@ print("\nAll visualizations have been saved in the 'plots' directory:")
 print("1. nn_predicted_vs_actual.png - Scatter plot of predicted vs actual prices")
 print("2. nn_mae_by_price_range.png - MAE analysis by price range")
 print("3. nn_results.json - Numerical results")
+
+def create_base_model(input_shape):
+    model = Sequential([
+        InputLayer(input_shape=input_shape),
+        
+        Dense(512, kernel_regularizer=l1_l2(l1=1e-5, l2=1e-4)),
+        LeakyReLU(alpha=0.1),
+        BatchNormalization(),
+        Dropout(0.5),
+        
+        Dense(256, kernel_regularizer=l1_l2(l1=1e-5, l2=1e-4)),
+        LeakyReLU(alpha=0.1),
+        BatchNormalization(),
+        Dropout(0.4),
+        
+        Dense(128, kernel_regularizer=l1_l2(l1=1e-5, l2=1e-4)),
+        LeakyReLU(alpha=0.1),
+        BatchNormalization(),
+        Dropout(0.3),
+        
+        Dense(64, kernel_regularizer=l1_l2(l1=1e-5, l2=1e-4)),
+        LeakyReLU(alpha=0.1),
+        BatchNormalization(),
+        Dropout(0.2),
+        
+        Dense(32, kernel_regularizer=l1_l2(l1=1e-5, l2=1e-4)),
+        LeakyReLU(alpha=0.1),
+        BatchNormalization(),
+        
+        Dense(1)
+    ])
+
+    model.compile(
+        optimizer=Adam(learning_rate=0.001),
+        loss='huber',
+        metrics=['mae']
+    )
+    
+    return model

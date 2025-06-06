@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings - Airbnb Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .performance-group {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .performance-group h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .listing-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .listing-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .listing-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .listing-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .listing-price {
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .listing-details {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .view-listing-btn {
+            background-color: #FF5A5F;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            margin-top: auto;
+        }
+        .view-listing-btn:hover {
+            background-color: #FF3B40;
+        }
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .filter-group {
+            margin-bottom: 15px;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+        .filter-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Airbnb Price Predictor</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('predict_page') }}">Predict Price</a></li>
+            <li><a href="{{ url_for('models_page') }}">About Models</a></li>
+            <li><a href="{{ url_for('listings_page') }}" class="active">View Listings</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Airbnb Listings</h1>
+        
+        <!-- Filters Section -->
+        <div class="filters">
+            <div class="filter-group">
+                <label for="neighbourhood">Neighbourhood</label>
+                <select id="neighbourhood" onchange="filterListings()">
+                    <option value="">All Neighbourhoods</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="room_type">Room Type</label>
+                <select id="room_type" onchange="filterListings()">
+                    <option value="">All Room Types</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="price_range">Price Range</label>
+                <select id="price_range" onchange="filterListings()">
+                    <option value="">All Prices</option>
+                    <option value="0-100">$0 - $100</option>
+                    <option value="100-200">$100 - $200</option>
+                    <option value="200-300">$200 - $300</option>
+                    <option value="300-400">$300 - $400</option>
+                    <option value="400+">$400+</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="min_rating">Minimum Rating</label>
+                <select id="min_rating" onchange="filterListings()">
+                    <option value="0">Any Rating</option>
+                    <option value="4">4+ Stars</option>
+                    <option value="4.5">4.5+ Stars</option>
+                    <option value="4.8">4.8+ Stars</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Listings by Performance Group -->
+        <div id="listings-container">
+            <!-- Listings will be populated here by JavaScript -->
+        </div>
+    </main>
+
+    <script>
+        let allListings = [];
+        let currentFilters = {
+            neighbourhood: '',
+            roomType: '',
+            priceRange: '',
+            minRating: '0'
+        };
+
+        // Load listings data
+        async function loadListings() {
+            try {
+                const response = await fetch('/api/grouped_listings');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                allListings = await response.json();
+                console.log("Received listings:", allListings);
+                console.log("Number of listings:", allListings.length);
+                if (allListings.length > 0) {
+                    console.log("Sample listing:", allListings[0]);
+                }
+                updateFilters();
+                displayListings();
+            } catch (error) {
+                console.error('Error loading listings:', error);
+                document.getElementById('listings-container').innerHTML = `
+                    <div class="error-message">
+                        Error loading listings. Please try refreshing the page.
+                    </div>
+                `;
+            }
+        }
+
+        // Update filter options based on available data
+        function updateFilters() {
+            const neighborhoods = [...new Set(allListings.map(l => l.neighbourhood_cleansed))].filter(Boolean);
+            const roomTypes = [...new Set(allListings.map(l => l.room_type))].filter(Boolean);
+
+            const neighborhoodSelect = document.getElementById('neighbourhood');
+            const roomTypeSelect = document.getElementById('room_type');
+
+            // Clear existing options except the first one
+            while (neighborhoodSelect.options.length > 1) {
+                neighborhoodSelect.remove(1);
+            }
+            while (roomTypeSelect.options.length > 1) {
+                roomTypeSelect.remove(1);
+            }
+
+            neighborhoods.sort().forEach(neighborhood => {
+                const option = document.createElement('option');
+                option.value = neighborhood;
+                option.textContent = neighborhood;
+                neighborhoodSelect.appendChild(option);
+            });
+
+            roomTypes.sort().forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                roomTypeSelect.appendChild(option);
+            });
+        }
+
+        // Display listings grouped by performance
+        function displayListings() {
+            const container = document.getElementById('listings-container');
+            container.innerHTML = '';
+
+            if (!allListings || allListings.length === 0) {
+                container.innerHTML = '<div class="no-listings">No listings found.</div>';
+                return;
+            }
+
+            // Group listings by performance
+            const groupedListings = {};
+            allListings.forEach(listing => {
+                if (!groupedListings[listing.performance_group]) {
+                    groupedListings[listing.performance_group] = [];
+                }
+                if (filterListing(listing)) {
+                    groupedListings[listing.performance_group].push(listing);
+                }
+            });
+
+            console.log("Grouped listings:", groupedListings);
+            console.log("Number of groups:", Object.keys(groupedListings).length);
+
+            // Display each performance group
+            for (const [group, listings] of Object.entries(groupedListings)) {
+                if (listings.length === 0) continue;
+
+                console.log(`Displaying group ${group} with ${listings.length} listings`);
+
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'performance-group';
+                groupDiv.innerHTML = `
+                    <h3>${group.replace(/_/g, ' ').toUpperCase()}</h3>
+                    <div class="listings-grid">
+                        ${listings.map(listing => createListingCard(listing)).join('')}
+                    </div>
+                `;
+                container.appendChild(groupDiv);
+            }
+        }
+
+        // Create a listing card
+        function createListingCard(listing) {
+            const price = listing.price ? `$${listing.price}` : 'Price not available';
+            const rating = listing.review_scores_rating ? listing.review_scores_rating.toFixed(1) : 'N/A';
+            const reviews = listing.number_of_reviews || 0;
+            const bedrooms = listing.bedrooms || 0;
+            const bathrooms = listing.bathrooms || 0;
+            const imageUrl = listing.picture_url || 'https://via.placeholder.com/300x200';
+            const listingUrl = listing.listing_url || '#';
+
+            return `
+                <div class="listing-card">
+                    <img src="${imageUrl}" 
+                         class="listing-image" 
+                         alt="${listing.name || 'Listing'}"
+                         onerror="this.src='https://via.placeholder.com/300x200'">
+                    <div class="listing-info">
+                        <div class="listing-title">${listing.name || 'Untitled Listing'}</div>
+                        <div class="listing-price">${price}</div>
+                        <div class="listing-details">
+                            <div>${listing.neighbourhood_cleansed || 'Location not specified'}</div>
+                            <div>${listing.room_type || 'Room type not specified'}</div>
+                            <div>Rating: ${rating} (${reviews} reviews)</div>
+                            <div>${bedrooms} beds • ${bathrooms} baths</div>
+                        </div>
+                        <a href="${listingUrl}" target="_blank" class="view-listing-btn">View on Airbnb</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Filter a single listing
+        function filterListing(listing) {
+            if (currentFilters.neighbourhood && 
+                listing.neighbourhood_cleansed !== currentFilters.neighbourhood) return false;
+            if (currentFilters.roomType && 
+                listing.room_type !== currentFilters.roomType) return false;
+            if (currentFilters.minRating && 
+                listing.review_scores_rating < parseFloat(currentFilters.minRating)) return false;
+            
+            // Price range filter
+            if (currentFilters.priceRange) {
+                const [min, max] = currentFilters.priceRange.split('-').map(Number);
+                if (max && (listing.price < min || listing.price > max)) return false;
+                if (!max && listing.price < min) return false;
+            }
+            
+            return true;
+        }
+
+        // Apply filters
+        function filterListings() {
+            currentFilters = {
+                neighbourhood: document.getElementById('neighbourhood').value,
+                roomType: document.getElementById('room_type').value,
+                priceRange: document.getElementById('price_range').value,
+                minRating: document.getElementById('min_rating').value
+            };
+            displayListings();
+        }
+
+        // Load listings when page loads
+        document.addEventListener('DOMContentLoaded', loadListings);
+    </script>
+</body>
+</html> 

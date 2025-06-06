@@ -1,0 +1,897 @@
+{
+    "total_neighborhoods": 223,
+    "neighborhoods": {
+        "Allerton": {
+            "count": 42,
+            "percentage": 0.11
+        },
+        "Arden Heights": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Arrochar": {
+            "count": 12,
+            "percentage": 0.03
+        },
+        "Arverne": {
+            "count": 90,
+            "percentage": 0.24
+        },
+        "Astoria": {
+            "count": 569,
+            "percentage": 1.52
+        },
+        "Bath Beach": {
+            "count": 25,
+            "percentage": 0.07
+        },
+        "Battery Park City": {
+            "count": 88,
+            "percentage": 0.24
+        },
+        "Bay Ridge": {
+            "count": 117,
+            "percentage": 0.31
+        },
+        "Bay Terrace": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Bay Terrace, Staten Island": {
+            "count": 1,
+            "percentage": 0.0
+        },
+        "Baychester": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Bayside": {
+            "count": 45,
+            "percentage": 0.12
+        },
+        "Bayswater": {
+            "count": 16,
+            "percentage": 0.04
+        },
+        "Bedford-Stuyvesant": {
+            "count": 2669,
+            "percentage": 7.13
+        },
+        "Belle Harbor": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Bellerose": {
+            "count": 17,
+            "percentage": 0.05
+        },
+        "Belmont": {
+            "count": 30,
+            "percentage": 0.08
+        },
+        "Bensonhurst": {
+            "count": 58,
+            "percentage": 0.15
+        },
+        "Bergen Beach": {
+            "count": 16,
+            "percentage": 0.04
+        },
+        "Boerum Hill": {
+            "count": 123,
+            "percentage": 0.33
+        },
+        "Borough Park": {
+            "count": 64,
+            "percentage": 0.17
+        },
+        "Breezy Point": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Briarwood": {
+            "count": 39,
+            "percentage": 0.1
+        },
+        "Brighton Beach": {
+            "count": 57,
+            "percentage": 0.15
+        },
+        "Bronxdale": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Brooklyn Heights": {
+            "count": 93,
+            "percentage": 0.25
+        },
+        "Brownsville": {
+            "count": 86,
+            "percentage": 0.23
+        },
+        "Bull's Head": {
+            "count": 9,
+            "percentage": 0.02
+        },
+        "Bushwick": {
+            "count": 1516,
+            "percentage": 4.05
+        },
+        "Cambria Heights": {
+            "count": 65,
+            "percentage": 0.17
+        },
+        "Canarsie": {
+            "count": 216,
+            "percentage": 0.58
+        },
+        "Carroll Gardens": {
+            "count": 151,
+            "percentage": 0.4
+        },
+        "Castle Hill": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Castleton Corners": {
+            "count": 6,
+            "percentage": 0.02
+        },
+        "Chelsea": {
+            "count": 873,
+            "percentage": 2.33
+        },
+        "Chelsea, Staten Island": {
+            "count": 1,
+            "percentage": 0.0
+        },
+        "Chinatown": {
+            "count": 283,
+            "percentage": 0.76
+        },
+        "City Island": {
+            "count": 14,
+            "percentage": 0.04
+        },
+        "Civic Center": {
+            "count": 25,
+            "percentage": 0.07
+        },
+        "Claremont Village": {
+            "count": 56,
+            "percentage": 0.15
+        },
+        "Clason Point": {
+            "count": 36,
+            "percentage": 0.1
+        },
+        "Clifton": {
+            "count": 10,
+            "percentage": 0.03
+        },
+        "Clinton Hill": {
+            "count": 352,
+            "percentage": 0.94
+        },
+        "Co-op City": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Cobble Hill": {
+            "count": 54,
+            "percentage": 0.14
+        },
+        "College Point": {
+            "count": 47,
+            "percentage": 0.13
+        },
+        "Columbia St": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Concord": {
+            "count": 6,
+            "percentage": 0.02
+        },
+        "Concourse": {
+            "count": 37,
+            "percentage": 0.1
+        },
+        "Concourse Village": {
+            "count": 32,
+            "percentage": 0.09
+        },
+        "Coney Island": {
+            "count": 22,
+            "percentage": 0.06
+        },
+        "Corona": {
+            "count": 54,
+            "percentage": 0.14
+        },
+        "Country Club": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Crown Heights": {
+            "count": 1184,
+            "percentage": 3.16
+        },
+        "Cypress Hills": {
+            "count": 161,
+            "percentage": 0.43
+        },
+        "DUMBO": {
+            "count": 29,
+            "percentage": 0.08
+        },
+        "Ditmars Steinway": {
+            "count": 210,
+            "percentage": 0.56
+        },
+        "Dongan Hills": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Douglaston": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Downtown Brooklyn": {
+            "count": 75,
+            "percentage": 0.2
+        },
+        "Dyker Heights": {
+            "count": 15,
+            "percentage": 0.04
+        },
+        "East Elmhurst": {
+            "count": 181,
+            "percentage": 0.48
+        },
+        "East Flatbush": {
+            "count": 505,
+            "percentage": 1.35
+        },
+        "East Harlem": {
+            "count": 704,
+            "percentage": 1.88
+        },
+        "East Morrisania": {
+            "count": 10,
+            "percentage": 0.03
+        },
+        "East New York": {
+            "count": 306,
+            "percentage": 0.82
+        },
+        "East Village": {
+            "count": 1049,
+            "percentage": 2.8
+        },
+        "Eastchester": {
+            "count": 10,
+            "percentage": 0.03
+        },
+        "Edenwald": {
+            "count": 31,
+            "percentage": 0.08
+        },
+        "Edgemere": {
+            "count": 15,
+            "percentage": 0.04
+        },
+        "Elmhurst": {
+            "count": 287,
+            "percentage": 0.77
+        },
+        "Eltingville": {
+            "count": 3,
+            "percentage": 0.01
+        },
+        "Emerson Hill": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Far Rockaway": {
+            "count": 59,
+            "percentage": 0.16
+        },
+        "Fieldston": {
+            "count": 9,
+            "percentage": 0.02
+        },
+        "Financial District": {
+            "count": 604,
+            "percentage": 1.61
+        },
+        "Flatbush": {
+            "count": 471,
+            "percentage": 1.26
+        },
+        "Flatiron District": {
+            "count": 77,
+            "percentage": 0.21
+        },
+        "Flatlands": {
+            "count": 103,
+            "percentage": 0.28
+        },
+        "Flushing": {
+            "count": 451,
+            "percentage": 1.2
+        },
+        "Fordham": {
+            "count": 46,
+            "percentage": 0.12
+        },
+        "Forest Hills": {
+            "count": 103,
+            "percentage": 0.28
+        },
+        "Fort Greene": {
+            "count": 282,
+            "percentage": 0.75
+        },
+        "Fort Hamilton": {
+            "count": 93,
+            "percentage": 0.25
+        },
+        "Fort Wadsworth": {
+            "count": 1,
+            "percentage": 0.0
+        },
+        "Fresh Meadows": {
+            "count": 35,
+            "percentage": 0.09
+        },
+        "Gerritsen Beach": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Glendale": {
+            "count": 69,
+            "percentage": 0.18
+        },
+        "Gowanus": {
+            "count": 137,
+            "percentage": 0.37
+        },
+        "Gramercy": {
+            "count": 263,
+            "percentage": 0.7
+        },
+        "Graniteville": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Grant City": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Gravesend": {
+            "count": 61,
+            "percentage": 0.16
+        },
+        "Great Kills": {
+            "count": 6,
+            "percentage": 0.02
+        },
+        "Greenpoint": {
+            "count": 626,
+            "percentage": 1.67
+        },
+        "Greenwich Village": {
+            "count": 205,
+            "percentage": 0.55
+        },
+        "Grymes Hill": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Harlem": {
+            "count": 1725,
+            "percentage": 4.61
+        },
+        "Hell's Kitchen": {
+            "count": 1556,
+            "percentage": 4.16
+        },
+        "Highbridge": {
+            "count": 25,
+            "percentage": 0.07
+        },
+        "Hollis": {
+            "count": 20,
+            "percentage": 0.05
+        },
+        "Holliswood": {
+            "count": 3,
+            "percentage": 0.01
+        },
+        "Howard Beach": {
+            "count": 34,
+            "percentage": 0.09
+        },
+        "Howland Hook": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Huguenot": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Hunts Point": {
+            "count": 31,
+            "percentage": 0.08
+        },
+        "Inwood": {
+            "count": 178,
+            "percentage": 0.48
+        },
+        "Jackson Heights": {
+            "count": 201,
+            "percentage": 0.54
+        },
+        "Jamaica": {
+            "count": 267,
+            "percentage": 0.71
+        },
+        "Jamaica Estates": {
+            "count": 20,
+            "percentage": 0.05
+        },
+        "Jamaica Hills": {
+            "count": 20,
+            "percentage": 0.05
+        },
+        "Kensington": {
+            "count": 112,
+            "percentage": 0.3
+        },
+        "Kew Gardens": {
+            "count": 35,
+            "percentage": 0.09
+        },
+        "Kew Gardens Hills": {
+            "count": 25,
+            "percentage": 0.07
+        },
+        "Kingsbridge": {
+            "count": 66,
+            "percentage": 0.18
+        },
+        "Kips Bay": {
+            "count": 404,
+            "percentage": 1.08
+        },
+        "Laurelton": {
+            "count": 50,
+            "percentage": 0.13
+        },
+        "Lighthouse Hill": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Little Italy": {
+            "count": 111,
+            "percentage": 0.3
+        },
+        "Little Neck": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Long Island City": {
+            "count": 400,
+            "percentage": 1.07
+        },
+        "Longwood": {
+            "count": 54,
+            "percentage": 0.14
+        },
+        "Lower East Side": {
+            "count": 622,
+            "percentage": 1.66
+        },
+        "Manhattan Beach": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Marble Hill": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Mariners Harbor": {
+            "count": 26,
+            "percentage": 0.07
+        },
+        "Maspeth": {
+            "count": 89,
+            "percentage": 0.24
+        },
+        "Melrose": {
+            "count": 20,
+            "percentage": 0.05
+        },
+        "Middle Village": {
+            "count": 19,
+            "percentage": 0.05
+        },
+        "Midland Beach": {
+            "count": 9,
+            "percentage": 0.02
+        },
+        "Midtown": {
+            "count": 2050,
+            "percentage": 5.48
+        },
+        "Midwood": {
+            "count": 92,
+            "percentage": 0.25
+        },
+        "Mill Basin": {
+            "count": 14,
+            "percentage": 0.04
+        },
+        "Morningside Heights": {
+            "count": 198,
+            "percentage": 0.53
+        },
+        "Morris Heights": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Morris Park": {
+            "count": 38,
+            "percentage": 0.1
+        },
+        "Morrisania": {
+            "count": 14,
+            "percentage": 0.04
+        },
+        "Mott Haven": {
+            "count": 61,
+            "percentage": 0.16
+        },
+        "Mount Eden": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Mount Hope": {
+            "count": 30,
+            "percentage": 0.08
+        },
+        "Murray Hill": {
+            "count": 454,
+            "percentage": 1.21
+        },
+        "Navy Yard": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Neponsit": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "New Brighton": {
+            "count": 10,
+            "percentage": 0.03
+        },
+        "New Dorp": {
+            "count": 1,
+            "percentage": 0.0
+        },
+        "New Dorp Beach": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "New Springville": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "NoHo": {
+            "count": 33,
+            "percentage": 0.09
+        },
+        "Nolita": {
+            "count": 200,
+            "percentage": 0.53
+        },
+        "North Riverdale": {
+            "count": 9,
+            "percentage": 0.02
+        },
+        "Norwood": {
+            "count": 33,
+            "percentage": 0.09
+        },
+        "Oakwood": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Olinville": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Ozone Park": {
+            "count": 78,
+            "percentage": 0.21
+        },
+        "Park Slope": {
+            "count": 306,
+            "percentage": 0.82
+        },
+        "Parkchester": {
+            "count": 24,
+            "percentage": 0.06
+        },
+        "Pelham Bay": {
+            "count": 11,
+            "percentage": 0.03
+        },
+        "Pelham Gardens": {
+            "count": 33,
+            "percentage": 0.09
+        },
+        "Port Morris": {
+            "count": 45,
+            "percentage": 0.12
+        },
+        "Port Richmond": {
+            "count": 12,
+            "percentage": 0.03
+        },
+        "Prince's Bay": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Prospect Heights": {
+            "count": 197,
+            "percentage": 0.53
+        },
+        "Prospect-Lefferts Gardens": {
+            "count": 363,
+            "percentage": 0.97
+        },
+        "Queens Village": {
+            "count": 85,
+            "percentage": 0.23
+        },
+        "Randall Manor": {
+            "count": 20,
+            "percentage": 0.05
+        },
+        "Red Hook": {
+            "count": 41,
+            "percentage": 0.11
+        },
+        "Rego Park": {
+            "count": 73,
+            "percentage": 0.2
+        },
+        "Richmond Hill": {
+            "count": 95,
+            "percentage": 0.25
+        },
+        "Ridgewood": {
+            "count": 345,
+            "percentage": 0.92
+        },
+        "Riverdale": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Rockaway Beach": {
+            "count": 55,
+            "percentage": 0.15
+        },
+        "Roosevelt Island": {
+            "count": 40,
+            "percentage": 0.11
+        },
+        "Rosebank": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "Rosedale": {
+            "count": 102,
+            "percentage": 0.27
+        },
+        "Rossville": {
+            "count": 3,
+            "percentage": 0.01
+        },
+        "Schuylerville": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Sea Gate": {
+            "count": 18,
+            "percentage": 0.05
+        },
+        "Sheepshead Bay": {
+            "count": 132,
+            "percentage": 0.35
+        },
+        "Shore Acres": {
+            "count": 10,
+            "percentage": 0.03
+        },
+        "Silver Lake": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "SoHo": {
+            "count": 274,
+            "percentage": 0.73
+        },
+        "Soundview": {
+            "count": 14,
+            "percentage": 0.04
+        },
+        "South Beach": {
+            "count": 9,
+            "percentage": 0.02
+        },
+        "South Ozone Park": {
+            "count": 68,
+            "percentage": 0.18
+        },
+        "South Slope": {
+            "count": 172,
+            "percentage": 0.46
+        },
+        "Springfield Gardens": {
+            "count": 128,
+            "percentage": 0.34
+        },
+        "Spuyten Duyvil": {
+            "count": 7,
+            "percentage": 0.02
+        },
+        "St. Albans": {
+            "count": 139,
+            "percentage": 0.37
+        },
+        "St. George": {
+            "count": 35,
+            "percentage": 0.09
+        },
+        "Stapleton": {
+            "count": 15,
+            "percentage": 0.04
+        },
+        "Stuyvesant Town": {
+            "count": 60,
+            "percentage": 0.16
+        },
+        "Sunnyside": {
+            "count": 267,
+            "percentage": 0.71
+        },
+        "Sunset Park": {
+            "count": 271,
+            "percentage": 0.72
+        },
+        "Theater District": {
+            "count": 389,
+            "percentage": 1.04
+        },
+        "Throgs Neck": {
+            "count": 34,
+            "percentage": 0.09
+        },
+        "Todt Hill": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Tompkinsville": {
+            "count": 45,
+            "percentage": 0.12
+        },
+        "Tottenville": {
+            "count": 5,
+            "percentage": 0.01
+        },
+        "Tremont": {
+            "count": 16,
+            "percentage": 0.04
+        },
+        "Tribeca": {
+            "count": 168,
+            "percentage": 0.45
+        },
+        "Two Bridges": {
+            "count": 39,
+            "percentage": 0.1
+        },
+        "Unionport": {
+            "count": 13,
+            "percentage": 0.03
+        },
+        "University Heights": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Upper East Side": {
+            "count": 1509,
+            "percentage": 4.03
+        },
+        "Upper West Side": {
+            "count": 1533,
+            "percentage": 4.1
+        },
+        "Van Nest": {
+            "count": 11,
+            "percentage": 0.03
+        },
+        "Vinegar Hill": {
+            "count": 37,
+            "percentage": 0.1
+        },
+        "Wakefield": {
+            "count": 76,
+            "percentage": 0.2
+        },
+        "Washington Heights": {
+            "count": 554,
+            "percentage": 1.48
+        },
+        "West Brighton": {
+            "count": 24,
+            "percentage": 0.06
+        },
+        "West Farms": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "West Village": {
+            "count": 482,
+            "percentage": 1.29
+        },
+        "Westchester Square": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Westerleigh": {
+            "count": 4,
+            "percentage": 0.01
+        },
+        "Whitestone": {
+            "count": 17,
+            "percentage": 0.05
+        },
+        "Williamsbridge": {
+            "count": 50,
+            "percentage": 0.13
+        },
+        "Williamsburg": {
+            "count": 2152,
+            "percentage": 5.75
+        },
+        "Willowbrook": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Windsor Terrace": {
+            "count": 86,
+            "percentage": 0.23
+        },
+        "Woodhaven": {
+            "count": 89,
+            "percentage": 0.24
+        },
+        "Woodlawn": {
+            "count": 8,
+            "percentage": 0.02
+        },
+        "Woodrow": {
+            "count": 2,
+            "percentage": 0.01
+        },
+        "Woodside": {
+            "count": 308,
+            "percentage": 0.82
+        }
+    }
+}

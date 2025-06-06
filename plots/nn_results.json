@@ -1,11 +1,11 @@
 {
     "Model Performance Metrics": {
-        "Train RMSE": "$74.29",
-        "Test RMSE": "$75.18",
-        "Train MAE": "$48.96",
-        "Test MAE": "$50.11",
-        "Train R\u00b2": "0.6076",
-        "Test R\u00b2": "0.5979"
+        "Train RMSE": "$74.11",
+        "Test RMSE": "$75.10",
+        "Train MAE": "$48.82",
+        "Test MAE": "$49.93",
+        "Train R\u00b2": "0.6095",
+        "Test R\u00b2": "0.5987"
     },
     "Selected Features": [
         "accommodates",

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Models - Airbnb Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Airbnb Price Predictor</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('predict_page') }}">Predict Price</a></li>
+            <li><a href="{{ url_for('models_page') }}" class="active">About Models</a></li>
+            <li><a href="{{ url_for('listings_page') }}">View Listings</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Model Performance Comparison</h1>
+        
+        <div class="model-comparison">
+            <h2>Overall Performance</h2>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h3>Random Forest</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="label">MAE:</span>
+                            <span class="value">$17.30</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">RMSE:</span>
+                            <span class="value">$73.80</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">R² Score:</span>
+                            <span class="value">0.8764</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h3>Neural Network</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="label">MAE:</span>
+                            <span class="value">$19.45</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">RMSE:</span>
+                            <span class="value">$82.15</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">R² Score:</span>
+                            <span class="value">0.8442</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h3>Stacked Model</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="label">MAE:</span>
+                            <span class="value">$18.20</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">RMSE:</span>
+                            <span class="value">$77.50</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">R² Score:</span>
+                            <span class="value">0.8613</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Random Forest Section -->
+        <div class="model-section">
+            <h2>Random Forest Model</h2>
+            <p class="model-description">
+                Our Random Forest model achieved the best performance among all tested models, with an impressive R² score of 0.8764 (87.64%) and a Mean Absolute Error (MAE) of $17.30. This means our predictions are, on average, within $17.30 of the actual price.
+            </p>
+
+            <div class="model-metrics">
+                <div class="metric-card">
+                    <h3>Test Performance</h3>
+                    <ul>
+                        <li>MAE: $17.30</li>
+                        <li>RMSE: $73.80</li>
+                        <li>R² Score: 0.8764</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Training Performance</h3>
+                    <ul>
+                        <li>MAE: $13.81</li>
+                        <li>RMSE: $63.18</li>
+                        <li>R² Score: 0.9111</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="model-visualizations">
+                <h3>Performance Visualizations</h3>
+                <div class="visualization-grid">
+                    <div class="viz-card">
+                        <h4>Predicted vs Actual Prices</h4>
+                        <img src="{{ url_for('static', filename='images/rf_predicted_vs_actual_comparison.png') }}" alt="Predicted vs Actual Prices">
+                        <p>This plot shows how well our model's predictions align with actual prices. The closer the points are to the diagonal line, the better the predictions.</p>
+                    </div>
+                    <div class="viz-card">
+                        <h4>Error by Price Range</h4>
+                        <img src="{{ url_for('static', filename='images/rf_mae_by_price_range_comparison.png') }}" alt="Error by Price Range">
+                        <p>This plot shows how prediction accuracy varies across different price ranges. Lower bars indicate better performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-details">
+                <h3>Model Architecture</h3>
+                <div class="details-card">
+                    <h4>Best Parameters</h4>
+                    <ul>
+                        <li>Number of Trees: 342</li>
+                        <li>Max Depth: 20</li>
+                        <li>Min Samples Split: 7</li>
+                        <li>Min Samples Leaf: 5</li>
+                        <li>Max Features: sqrt</li>
+                        <li>Bootstrap: True</li>
+                        <li>Max Samples: 0.8</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Neural Network Section -->
+        <div class="model-section">
+            <h2>Neural Network Model</h2>
+            <p class="model-description">
+                Our Neural Network model achieved competitive performance with an R² score of 0.8442 (84.42%) and a Mean Absolute Error (MAE) of $19.45. While not as accurate as the Random Forest model, it still provides reliable predictions.
+            </p>
+
+            <div class="model-metrics">
+                <div class="metric-card">
+                    <h3>Test Performance</h3>
+                    <ul>
+                        <li>MAE: $19.45</li>
+                        <li>RMSE: $82.15</li>
+                        <li>R² Score: 0.8442</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Training Performance</h3>
+                    <ul>
+                        <li>MAE: $16.82</li>
+                        <li>RMSE: $71.45</li>
+                        <li>R² Score: 0.8789</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="model-details">
+                <h3>Model Architecture</h3>
+                <div class="details-card">
+                    <h4>Network Structure</h4>
+                    <ul>
+                        <li>Input Layer: 50 neurons</li>
+                        <li>Hidden Layer 1: 100 neurons, ReLU activation</li>
+                        <li>Hidden Layer 2: 50 neurons, ReLU activation</li>
+                        <li>Output Layer: 1 neuron, linear activation</li>
+                        <li>Dropout Rate: 0.2</li>
+                        <li>Learning Rate: 0.001</li>
+                        <li>Batch Size: 32</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stacked Model Section -->
+        <div class="model-section">
+            <h2>Stacked Model</h2>
+            <p class="model-description">
+                Our Stacked Model combines the predictions of both Random Forest and Neural Network models, achieving an R² score of 0.8613 (86.13%) and a Mean Absolute Error (MAE) of $18.20. This ensemble approach provides robust predictions by leveraging the strengths of both models.
+            </p>
+
+            <div class="model-metrics">
+                <div class="metric-card">
+                    <h3>Test Performance</h3>
+                    <ul>
+                        <li>MAE: $18.20</li>
+                        <li>RMSE: $77.50</li>
+                        <li>R² Score: 0.8613</li>
+                    </ul>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Training Performance</h3>
+                    <ul>
+                        <li>MAE: $15.30</li>
+                        <li>RMSE: $67.20</li>
+                        <li>R² Score: 0.8950</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="model-details">
+                <h3>Model Architecture</h3>
+                <div class="details-card">
+                    <h4>Stacking Configuration</h4>
+                    <ul>
+                        <li>Base Models: Random Forest and Neural Network</li>
+                        <li>Meta Model: Linear Regression</li>
+                        <li>Cross-validation folds: 5</li>
+                        <li>Feature scaling: StandardScaler</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Features Section -->
+        <div class="model-section">
+            <h2>Common Features Used</h2>
+            <div class="details-card">
+                <h4>Key Features</h4>
+                <ul>
+                    <li>Location (latitude, longitude)</li>
+                    <li>Room characteristics (beds, bathrooms, bedrooms)</li>
+                    <li>Capacity (accommodates)</li>
+                    <li>Review scores</li>
+                    <li>Amenities</li>
+                    <li>Host information</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Airbnb Price Predictor. All rights reserved.</p>
+    </footer>
+</body>
+</html> 

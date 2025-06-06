@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Price - Airbnb Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Add Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARKUMtalAdsipswqEadlyDMDU3UklKruM&libraries=places"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Airbnb Price Predictor</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('predict_page') }}" class="active">Predict Price</a></li>
+            <li><a href="{{ url_for('models_page') }}">About Models</a></li>
+            <li><a href="{{ url_for('listings_page') }}">View Listings</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Predict Airbnb Price</h1>
+        
+        <div class="prediction-container">
+            <form id="prediction-form" class="prediction-form">
+                <div class="form-grid">
+                    <!-- Address Input -->
+                    <div class="form-group full-width">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" name="address" placeholder="Enter the property address" required>
+                        <div id="map" style="height: 200px; margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="room_type">Room Type</label>
+                        <select id="room_type" name="room_type" required>
+                            <option value="Entire home/apt">Entire home/apt</option>
+                            <option value="Private room">Private room</option>
+                            <option value="Shared room">Shared room</option>
+                            <option value="Hotel room">Hotel room</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="property_type">Property Type</label>
+                        <select class="form-control" id="property_type" name="property_type" required>
+                            <option value="">Select Property Type</option>
+                            <optgroup label="Entire Place">
+                                <option value="Entire home">Entire Home</option>
+                                <option value="Entire apartment">Entire Apartment</option>
+                                <option value="Entire condominium">Entire Condominium</option>
+                                <option value="Entire townhouse">Entire Townhouse</option>
+                                <option value="Entire villa">Entire Villa</option>
+                                <option value="Entire loft">Entire Loft</option>
+                                <option value="Entire guest suite">Entire Guest Suite</option>
+                                <option value="Entire guesthouse">Entire Guesthouse</option>
+                                <option value="Entire bungalow">Entire Bungalow</option>
+                                <option value="Entire cottage">Entire Cottage</option>
+                                <option value="Entire serviced apartment">Entire Serviced Apartment</option>
+                                <option value="Entire vacation home">Entire Vacation Home</option>
+                                <option value="Entire place">Entire Place</option>
+                                <option value="Entire rental unit">Entire Rental Unit</option>
+                            </optgroup>
+                            <optgroup label="Private Room">
+                                <option value="Private room">Private Room</option>
+                                <option value="Private room in apartment">Private Room in Apartment</option>
+                                <option value="Private room in house">Private Room in House</option>
+                                <option value="Private room in condominium">Private Room in Condominium</option>
+                                <option value="Private room in townhouse">Private Room in Townhouse</option>
+                                <option value="Private room in villa">Private Room in Villa</option>
+                                <option value="Private room in loft">Private Room in Loft</option>
+                                <option value="Private room in guest suite">Private Room in Guest Suite</option>
+                                <option value="Private room in guesthouse">Private Room in Guesthouse</option>
+                                <option value="Private room in bungalow">Private Room in Bungalow</option>
+                                <option value="Private room in cottage">Private Room in Cottage</option>
+                                <option value="Private room in serviced apartment">Private Room in Serviced Apartment</option>
+                                <option value="Private room in vacation home">Private Room in Vacation Home</option>
+                                <option value="Private room in bed and breakfast">Private Room in Bed and Breakfast</option>
+                                <option value="Private room in hostel">Private Room in Hostel</option>
+                                <option value="Private room in resort">Private Room in Resort</option>
+                            </optgroup>
+                            <optgroup label="Shared Room">
+                                <option value="Shared room">Shared Room</option>
+                                <option value="Shared room in apartment">Shared Room in Apartment</option>
+                                <option value="Shared room in house">Shared Room in House</option>
+                                <option value="Shared room in condominium">Shared Room in Condominium</option>
+                                <option value="Shared room in townhouse">Shared Room in Townhouse</option>
+                                <option value="Shared room in villa">Shared Room in Villa</option>
+                                <option value="Shared room in loft">Shared Room in Loft</option>
+                                <option value="Shared room in guest suite">Shared Room in Guest Suite</option>
+                                <option value="Shared room in guesthouse">Shared Room in Guesthouse</option>
+                                <option value="Shared room in bungalow">Shared Room in Bungalow</option>
+                                <option value="Shared room in cottage">Shared Room in Cottage</option>
+                                <option value="Shared room in serviced apartment">Shared Room in Serviced Apartment</option>
+                                <option value="Shared room in vacation home">Shared Room in Vacation Home</option>
+                                <option value="Shared room in bed and breakfast">Shared Room in Bed and Breakfast</option>
+                                <option value="Shared room in hostel">Shared Room in Hostel</option>
+                                <option value="Shared room in resort">Shared Room in Resort</option>
+                            </optgroup>
+                            <optgroup label="Hotel Room">
+                                <option value="Hotel room">Hotel Room</option>
+                                <option value="Room in hotel">Room in Hotel</option>
+                                <option value="Room in aparthotel">Room in Aparthotel</option>
+                                <option value="Room in boutique hotel">Room in Boutique Hotel</option>
+                                <option value="Room in serviced apartment">Room in Serviced Apartment</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="neighbourhood">Neighbourhood</label>
+                        <select id="neighbourhood" name="neighbourhood" required>
+                            <option value="">Select a neighborhood</option>
+                            <option value="Manhattan">Manhattan</option>
+                            <option value="Brooklyn">Brooklyn</option>
+                            <option value="Queens">Queens</option>
+                            <option value="Bronx">Bronx</option>
+                            <option value="Staten Island">Staten Island</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="closest_neighbourhood">Closest Neighbourhood:</label>
+                        <select id="closest_neighbourhood" name="closest_neighbourhood" required>
+                            <option value="">Select a neighborhood</option>
+                            <option>Allerton</option>
+                            <option>Arden Heights</option>
+                            <option>Arrochar</option>
+                            <option>Arverne</option>
+                            <option>Astoria</option>
+                            <option>Bath Beach</option>
+                            <option>Battery Park City</option>
+                            <option>Bay Ridge</option>
+                            <option>Bay Terrace</option>
+                            <option>Bay Terrace, Staten Island</option>
+                            <option>Baychester</option>
+                            <option>Bayside</option>
+                            <option>Bayswater</option>
+                            <option>Bedford-Stuyvesant</option>
+                            <option>Belle Harbor</option>
+                            <option>Bellerose</option>
+                            <option>Belmont</option>
+                            <option>Bensonhurst</option>
+                            <option>Bergen Beach</option>
+                            <option>Boerum Hill</option>
+                            <option>Borough Park</option>
+                            <option>Breezy Point</option>
+                            <option>Briarwood</option>
+                            <option>Brighton Beach</option>
+                            <option>Bronxdale</option>
+                            <option>Brooklyn Heights</option>
+                            <option>Brownsville</option>
+                            <option>Bull's Head</option>
+                            <option>Bushwick</option>
+                            <option>Cambria Heights</option>
+                            <option>Canarsie</option>
+                            <option>Carroll Gardens</option>
+                            <option>Castle Hill</option>
+                            <option>Castleton Corners</option>
+                            <option>Chelsea</option>
+                            <option>Chelsea, Staten Island</option>
+                            <option>Chinatown</option>
+                            <option>City Island</option>
+                            <option>Civic Center</option>
+                            <option>Claremont Village</option>
+                            <option>Clason Point</option>
+                            <option>Clifton</option>
+                            <option>Clinton Hill</option>
+                            <option>Co-op City</option>
+                            <option>Cobble Hill</option>
+                            <option>College Point</option>
+                            <option>Columbia St</option>
+                            <option>Concord</option>
+                            <option>Concourse</option>
+                            <option>Concourse Village</option>
+                            <option>Coney Island</option>
+                            <option>Corona</option>
+                            <option>Country Club</option>
+                            <option>Crown Heights</option>
+                            <option>Cypress Hills</option>
+                            <option>DUMBO</option>
+                            <option>Ditmars Steinway</option>
+                            <option>Dongan Hills</option>
+                            <option>Douglaston</option>
+                            <option>Downtown Brooklyn</option>
+                            <option>Dyker Heights</option>
+                            <option>East Elmhurst</option>
+                            <option>East Flatbush</option>
+                            <option>East Harlem</option>
+                            <option>East Morrisania</option>
+                            <option>East New York</option>
+                            <option>East Village</option>
+                            <option>Eastchester</option>
+                            <option>Edenwald</option>
+                            <option>Edgemere</option>
+                            <option>Elmhurst</option>
+                            <option>Eltingville</option>
+                            <option>Emerson Hill</option>
+                            <option>Far Rockaway</option>
+                            <option>Fieldston</option>
+                            <option>Financial District</option>
+                            <option>Flatbush</option>
+                            <option>Flatiron District</option>
+                            <option>Flatlands</option>
+                            <option>Flushing</option>
+                            <option>Fordham</option>
+                            <option>Forest Hills</option>
+                            <option>Fort Greene</option>
+                            <option>Fort Hamilton</option>
+                            <option>Fort Wadsworth</option>
+                            <option>Fresh Meadows</option>
+                            <option>Gerritsen Beach</option>
+                            <option>Glendale</option>
+                            <option>Gowanus</option>
+                            <option>Gramercy</option>
+                            <option>Graniteville</option>
+                            <option>Grant City</option>
+                            <option>Gravesend</option>
+                            <option>Great Kills</option>
+                            <option>Greenpoint</option>
+                            <option>Greenwich Village</option>
+                            <option>Grymes Hill</option>
+                            <option>Harlem</option>
+                            <option>Hell's Kitchen</option>
+                            <option>Highbridge</option>
+                            <option>Hollis</option>
+                            <option>Holliswood</option>
+                            <option>Howard Beach</option>
+                            <option>Howland Hook</option>
+                            <option>Huguenot</option>
+                            <option>Hunts Point</option>
+                            <option>Inwood</option>
+                            <option>Jackson Heights</option>
+                            <option>Jamaica</option>
+                            <option>Jamaica Estates</option>
+                            <option>Jamaica Hills</option>
+                            <option>Kensington</option>
+                            <option>Kew Gardens</option>
+                            <option>Kew Gardens Hills</option>
+                            <option>Kingsbridge</option>
+                            <option>Kips Bay</option>
+                            <option>Laurelton</option>
+                            <option>Lighthouse Hill</option>
+                            <option>Little Italy</option>
+                            <option>Little Neck</option>
+                            <option>Long Island City</option>
+                            <option>Longwood</option>
+                            <option>Lower East Side</option>
+                            <option>Manhattan Beach</option>
+                            <option>Marble Hill</option>
+                            <option>Mariners Harbor</option>
+                            <option>Maspeth</option>
+                            <option>Melrose</option>
+                            <option>Middle Village</option>
+                            <option>Midland Beach</option>
+                            <option>Midtown</option>
+                            <option>Midwood</option>
+                            <option>Mill Basin</option>
+                            <option>Morningside Heights</option>
+                            <option>Morris Heights</option>
+                            <option>Morris Park</option>
+                            <option>Morrisania</option>
+                            <option>Mott Haven</option>
+                            <option>Mount Eden</option>
+                            <option>Mount Hope</option>
+                            <option>Murray Hill</option>
+                            <option>Navy Yard</option>
+                            <option>Neponsit</option>
+                            <option>New Brighton</option>
+                            <option>New Dorp</option>
+                            <option>New Dorp Beach</option>
+                            <option>New Springville</option>
+                            <option>NoHo</option>
+                            <option>Nolita</option>
+                            <option>North Riverdale</option>
+                            <option>Norwood</option>
+                            <option>Oakwood</option>
+                            <option>Olinville</option>
+                            <option>Ozone Park</option>
+                            <option>Park Slope</option>
+                            <option>Parkchester</option>
+                            <option>Pelham Bay</option>
+                            <option>Pelham Gardens</option>
+                            <option>Port Morris</option>
+                            <option>Port Richmond</option>
+                            <option>Prince's Bay</option>
+                            <option>Prospect Heights</option>
+                            <option>Prospect-Lefferts Gardens</option>
+                            <option>Queens Village</option>
+                            <option>Randall Manor</option>
+                            <option>Red Hook</option>
+                            <option>Rego Park</option>
+                            <option>Richmond Hill</option>
+                            <option>Ridgewood</option>
+                            <option>Riverdale</option>
+                            <option>Rockaway Beach</option>
+                            <option>Roosevelt Island</option>
+                            <option>Rosebank</option>
+                            <option>Rosedale</option>
+                            <option>Rossville</option>
+                            <option>Schuylerville</option>
+                            <option>Sea Gate</option>
+                            <option>Sheepshead Bay</option>
+                            <option>Shore Acres</option>
+                            <option>Silver Lake</option>
+                            <option>SoHo</option>
+                            <option>Soundview</option>
+                            <option>South Beach</option>
+                            <option>South Ozone Park</option>
+                            <option>South Slope</option>
+                            <option>Springfield Gardens</option>
+                            <option>Spuyten Duyvil</option>
+                            <option>St. Albans</option>
+                            <option>St. George</option>
+                            <option>Stapleton</option>
+                            <option>Stuyvesant Town</option>
+                            <option>Sunnyside</option>
+                            <option>Sunset Park</option>
+                            <option>Theater District</option>
+                            <option>Throgs Neck</option>
+                            <option>Todt Hill</option>
+                            <option>Tompkinsville</option>
+                            <option>Tottenville</option>
+                            <option>Tremont</option>
+                            <option>Tribeca</option>
+                            <option>Two Bridges</option>
+                            <option>Unionport</option>
+                            <option>University Heights</option>
+                            <option>Upper East Side</option>
+                            <option>Upper West Side</option>
+                            <option>Van Nest</option>
+                            <option>Vinegar Hill</option>
+                            <option>Wakefield</option>
+                            <option>Washington Heights</option>
+                            <option>West Brighton</option>
+                            <option>West Farms</option>
+                            <option>West Village</option>
+                            <option>Westchester Square</option>
+                            <option>Westerleigh</option>
+                            <option>Whitestone</option>
+                            <option>Williamsbridge</option>
+                            <option>Williamsburg</option>
+                            <option>Willowbrook</option>
+                            <option>Windsor Terrace</option>
+                            <option>Woodhaven</option>
+                            <option>Woodlawn</option>
+                            <option>Woodrow</option>
+                            <option>Woodside</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="accommodates">Accommodates</label>
+                        <input type="number" id="accommodates" name="accommodates" min="1" max="16" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bathrooms">Bathrooms</label>
+                        <input type="number" id="bathrooms" name="bathrooms" min="0" max="8" step="0.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bedrooms">Bedrooms</label>
+                        <input type="number" id="bedrooms" name="bedrooms" min="0" max="10" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="beds">Beds</label>
+                        <input type="number" id="beds" name="beds" min="0" max="16" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="minimum_nights">Minimum Nights</label>
+                        <input type="number" id="minimum_nights" name="minimum_nights" min="1" max="365" required>
+                    </div>
+
+                    <!-- Amenities Section -->
+                    <div class="form-group amenities-section">
+                        <h3>Amenities</h3>
+                        
+                        <!-- Essential Amenities -->
+                        <div class="amenity-category">
+                            <label>
+                                Essential Amenities
+                                <span class="tooltip-icon" title="Basic amenities that most guests expect: Wifi, Kitchen, Heating, Washer, Dryer, Air conditioning, TV, Refrigerator">ⓘ</span>
+                            </label>
+                            <div class="amenity-checkboxes">
+                                <label><input type="checkbox" name="essential_amenities" value="Wifi"> Wifi</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Kitchen"> Kitchen</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Heating"> Heating</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Washer"> Washer</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Dryer"> Dryer</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Air conditioning"> Air conditioning</label>
+                                <label><input type="checkbox" name="essential_amenities" value="TV"> TV</label>
+                                <label><input type="checkbox" name="essential_amenities" value="Refrigerator"> Refrigerator</label>
+                            </div>
+                        </div>
+
+                        <!-- Safety Amenities -->
+                        <div class="amenity-category">
+                            <label>
+                                Safety Amenities
+                                <span class="tooltip-icon" title="Safety features: Smoke detector, Carbon monoxide detector, Fire extinguisher, First aid kit, Security cameras">ⓘ</span>
+                            </label>
+                            <div class="amenity-checkboxes">
+                                <label><input type="checkbox" name="safety_amenities" value="Smoke detector"> Smoke detector</label>
+                                <label><input type="checkbox" name="safety_amenities" value="Carbon monoxide detector"> Carbon monoxide detector</label>
+                                <label><input type="checkbox" name="safety_amenities" value="Fire extinguisher"> Fire extinguisher</label>
+                                <label><input type="checkbox" name="safety_amenities" value="First aid kit"> First aid kit</label>
+                                <label><input type="checkbox" name="safety_amenities" value="Security cameras"> Security cameras</label>
+                            </div>
+                        </div>
+
+                        <!-- Luxury Amenities -->
+                        <div class="amenity-category">
+                            <label>
+                                Luxury Amenities
+                                <span class="tooltip-icon" title="Premium features: Hot tub, Pool, Gym, Elevator, Doorman, Concierge">ⓘ</span>
+                            </label>
+                            <div class="amenity-checkboxes">
+                                <label><input type="checkbox" name="luxury_amenities" value="Hot tub"> Hot tub</label>
+                                <label><input type="checkbox" name="luxury_amenities" value="Pool"> Pool</label>
+                                <label><input type="checkbox" name="luxury_amenities" value="Gym"> Gym</label>
+                                <label><input type="checkbox" name="luxury_amenities" value="Elevator"> Elevator</label>
+                                <label><input type="checkbox" name="luxury_amenities" value="Doorman"> Doorman</label>
+                                <label><input type="checkbox" name="luxury_amenities" value="Concierge"> Concierge</label>
+                            </div>
+                        </div>
+
+                        <!-- Outdoor Amenities -->
+                        <div class="amenity-category">
+                            <label>
+                                Outdoor Amenities
+                                <span class="tooltip-icon" title="Outdoor features: Garden, Balcony, Patio, BBQ grill, Parking">ⓘ</span>
+                            </label>
+                            <div class="amenity-checkboxes">
+                                <label><input type="checkbox" name="outdoor_amenities" value="Garden"> Garden</label>
+                                <label><input type="checkbox" name="outdoor_amenities" value="Balcony"> Balcony</label>
+                                <label><input type="checkbox" name="outdoor_amenities" value="Patio"> Patio</label>
+                                <label><input type="checkbox" name="outdoor_amenities" value="BBQ grill"> BBQ grill</label>
+                                <label><input type="checkbox" name="outdoor_amenities" value="Parking"> Parking</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="host_is_superhost" name="host_is_superhost">
+                            Host is Superhost
+                        </label>
+                    </div>
+
+                    <!-- Hidden fields for coordinates -->
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                </div>
+
+                <button type="submit" class="submit-button">Predict Price</button>
+            </form>
+
+            <div id="results" class="results-container" style="display: none;">
+                <h2>Predicted Price</h2>
+                <div class="predictions-grid">
+                    <div class="prediction-card highlight">
+                        <h3>Random Forest Prediction</h3>
+                        <div class="price" id="rf-price">$0</div>
+                        <div class="confidence" id="rf-confidence">Confidence: 87.64%</div>
+                        <div class="metrics">
+                            <p>Mean Absolute Error: $17.30</p>
+                            <p>R² Score: 0.8764</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Airbnb Price Predictor. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/predict.js') }}"></script>
+</body>
+</html> 

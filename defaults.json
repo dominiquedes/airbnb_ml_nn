@@ -1,0 +1,23 @@
+{
+    "accommodates": 2.77,
+    "bathrooms": 1.19,
+    "bedrooms": 1.37,
+    "beds": 1.64,
+    "minimum_nights": 29.35,
+    "latitude": 40.73,
+    "longitude": -73.95,
+    "number_of_reviews": 25.94,
+    "number_of_reviews_ltm": 3.88,
+    "number_of_reviews_l30d": 0.2,
+    "number_of_reviews_ly": 3.75,
+    "reviews_per_month": 0.83,
+    "review_scores_rating": 4.72,
+    "review_scores_accuracy": 4.76,
+    "review_scores_cleanliness": 4.66,
+    "review_scores_checkin": 4.83,
+    "review_scores_communication": 4.82,
+    "review_scores_location": 4.74,
+    "review_scores_value": 4.64,
+    "neighborhood": "Bedford-Stuyvesant",
+    "room_type": "Entire home/apt"
+}
