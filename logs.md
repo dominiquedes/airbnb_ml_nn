@@ -1,1 +1,0 @@
-Had to change plans --> originally going to use just random forest instead going to use XGboosty and Random forerst = captures diff aspects of the data, robust preddictions, better handling with the range of prices 
